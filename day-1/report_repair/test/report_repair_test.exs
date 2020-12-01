@@ -2,7 +2,7 @@ defmodule ReportRepairTest do
   use ExUnit.Case
 
   test "return the product of the matching values" do
-    list = [100, 101, 102, 103]
-    assert ReportRepair.magic_product(list, 204) == 10403
+    list = [1, 2, 3, 4]
+    assert ReportRepair.magic_product(list, 6) == 8
   end
 end

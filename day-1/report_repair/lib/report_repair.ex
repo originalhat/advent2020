@@ -3,20 +3,21 @@ defmodule ReportRepair do
 
   def magic_product(list, target) do
     for x <- list do
-      case any_comp?(list, target - x) do
-        true ->
-          [x, target - x]
-
-        _ ->
+      for y <- list do
+        if sum_to?(x, y, target) do
+          [x, y]
+        else
           nil
+        end
       end
     end
+    |> List.flatten()
     |> Enum.reject(&is_nil/1)
-    |> List.first()
+    |> Enum.slice(0..1)
     |> Enum.reduce(fn x, acc -> x * acc end)
   end
 
-  defp any_comp?(list, comp) do
-    Enum.any?(list, fn x -> x == comp end)
+  defp sum_to?(x, y, target) do
+    x + y == target
   end
 end
