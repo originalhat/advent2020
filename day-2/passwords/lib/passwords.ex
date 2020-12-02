@@ -19,6 +19,20 @@ defmodule Passwords do
     actual >= min and actual <= max
   end
 
+  def is_valid2?(item) do
+    item.password
+    |> String.to_charlist()
+    |> correct_positions(item.min, item.max, item.character)
+  end
+
+  defp correct_positions(chars, first, second, expected) do
+    first = first - 1
+    second = second - 1
+
+    (Enum.at(chars, first) == expected and !(Enum.at(chars, second) == expected)) or
+      (!(Enum.at(chars, first) == expected) and Enum.at(chars, second) == expected)
+  end
+
   def pretty_parse(x) do
     %{
       :min => min_count(Enum.at(x, 0)),

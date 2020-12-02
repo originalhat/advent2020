@@ -25,6 +25,29 @@ defmodule PasswordsTest do
            }) == true
   end
 
+  test "validates a password against it's other policy" do
+    assert Passwords.is_valid2?(%{
+             :character => 97,
+             :min => 1,
+             :max => 3,
+             :password => "abcde"
+           }) == true
+
+    assert Passwords.is_valid2?(%{
+             :character => 98,
+             :min => 1,
+             :max => 3,
+             :password => "cdefg"
+           }) == false
+
+    assert Passwords.is_valid2?(%{
+             :character => 99,
+             :min => 2,
+             :max => 9,
+             :password => "ccccccccc"
+           }) == false
+  end
+
   test "pretty parse" do
     assert Passwords.pretty_parse(["1-7", "l:", "clllllzlllllll"]) ==
              %{
