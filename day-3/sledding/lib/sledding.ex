@@ -1,18 +1,27 @@
 defmodule Sledding do
-  @moduledoc """
-  Documentation for `Sledding`.
-  """
+  def parse_file() do
+    {:ok, contents} = File.read("input.txt")
 
-  @doc """
-  Hello world.
+    contents
+    |> String.split("\n", trim: true)
+    |> Enum.map(fn x -> String.split(x, "", trim: true) end)
+  end
 
-  ## Examples
+  def how_many_trees(hill) do
+    y_increment = 3
 
-      iex> Sledding.hello()
-      :world
+    hill
+    |> Enum.with_index()
+    |> Enum.count(fn {row, i} ->
+      access_loc(row, rem(i * y_increment, 31)) |> is_tree?
+    end)
+  end
 
-  """
-  def hello do
-    :world
+  defp access_loc(list, y) do
+    Enum.at(list, y)
+  end
+
+  defp is_tree?(char) do
+    char == "#"
   end
 end
