@@ -10,14 +10,19 @@ defmodule Sledding do
   def how_many_trees(hill, x_multiplier \\ 1, y_multiplier \\ 3) do
     hill
     |> Enum.with_index()
-    |> Enum.count(fn {row, i} ->
+    |> Enum.count(fn {_row, i} ->
+      x = i * x_multiplier
       y = rem(i * y_multiplier, 31)
-      access_loc(row, y) |> is_tree?
+
+      case x < Enum.count(hill) do
+        true -> access_loc(hill, x, y) |> is_tree?
+        _ -> false
+      end
     end)
   end
 
-  defp access_loc(list, y) do
-    Enum.at(list, y)
+  defp access_loc(list, x, y) do
+    Enum.at(list, x) |> Enum.at(y)
   end
 
   defp is_tree?(char) do
