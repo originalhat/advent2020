@@ -7,13 +7,12 @@ defmodule Sledding do
     |> Enum.map(fn x -> String.split(x, "", trim: true) end)
   end
 
-  def how_many_trees(hill) do
-    y_increment = 3
-
+  def how_many_trees(hill, x_multiplier \\ 1, y_multiplier \\ 3) do
     hill
     |> Enum.with_index()
     |> Enum.count(fn {row, i} ->
-      access_loc(row, rem(i * y_increment, 31)) |> is_tree?
+      y = rem(i * y_multiplier, 31)
+      access_loc(row, y) |> is_tree?
     end)
   end
 

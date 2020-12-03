@@ -120,4 +120,10 @@ defmodule SleddingTest do
 
     assert Sledding.how_many_trees(hill) == 2
   end
+
+  test "part #1 solution" do
+    hill = Sledding.parse_file()
+
+    assert Sledding.how_many_trees(hill) == 207
+  end
 end
