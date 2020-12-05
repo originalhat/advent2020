@@ -32,4 +32,15 @@ defmodule Binary do
     |> Enum.map(&Binary.to_seat_id(&1))
     |> Enum.max()
   end
+
+  def find_missing() do
+    boarding_passes = Binary.load_file()
+
+    boarding_passes
+    |> Enum.map(&Binary.split_code(&1))
+    |> Enum.map(&Binary.to_seat_id(&1))
+    |> (&(Enum.to_list(38..998) -- &1)).()
+  end
 end
+
+# 38..396

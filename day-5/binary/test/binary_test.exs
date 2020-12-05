@@ -31,4 +31,8 @@ defmodule BinaryTest do
   test "finds the highest seat ID in the file data" do
     assert Binary.find_highest() == 998
   end
+
+  test "finds the missing seat" do
+    assert Binary.find_missing() == [676]
+  end
 end
