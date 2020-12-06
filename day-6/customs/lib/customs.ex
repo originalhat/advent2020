@@ -11,7 +11,7 @@ defmodule Customs do
   def uniq_row_count(row) do
     row
     |> Enum.map(&MapSet.new(String.to_charlist(&1)))
-    |> Enum.reduce(fn x, acc -> MapSet.union(acc, x) end)
+    |> Enum.reduce(fn x, acc -> MapSet.intersection(acc, x) end)
     |> Enum.count()
   end
 
