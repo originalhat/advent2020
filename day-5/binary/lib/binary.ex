@@ -42,5 +42,3 @@ defmodule Binary do
     |> (&(Enum.to_list(38..998) -- &1)).()
   end
 end
-
-# 38..396
