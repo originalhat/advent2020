@@ -1,18 +1,22 @@
 defmodule Customs do
-  @moduledoc """
-  Documentation for `Customs`.
-  """
+  def load_file() do
+    {:ok, contents} = File.read("input.txt")
 
-  @doc """
-  Hello world.
+    contents
+    |> String.split(~r{\n\s}, trim: true)
+    |> Enum.map(&String.replace(&1, "\n", " "))
+    |> Enum.map(&String.split(&1, " ", trim: true))
+  end
 
-  ## Examples
+  def uniq_row_count(row) do
+    row
+    |> Enum.map(&MapSet.new(String.to_charlist(&1)))
+    |> Enum.reduce(fn x, acc -> MapSet.union(acc, x) end)
+    |> Enum.count()
+  end
 
-      iex> Customs.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def total_count() do
+    Customs.load_file()
+    |> Enum.reduce(0, fn x, acc -> acc + Customs.uniq_row_count(x) end)
   end
 end

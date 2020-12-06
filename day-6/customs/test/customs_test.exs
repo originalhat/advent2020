@@ -2,7 +2,7 @@ defmodule CustomsTest do
   use ExUnit.Case
   doctest Customs
 
-  test "greets the world" do
-    assert Customs.hello() == :world
+  test "return the correct # per party " do
+    assert Customs.uniq_row_count(["abcx", "abcy", "abcz"]) == 6
   end
 end
