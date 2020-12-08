@@ -6,23 +6,18 @@ defmodule Bags do
   end
 
   def count_nodes(nodes, t, acc \\ 0) do
-    count = Enum.count(find_parents(nodes, t))
+    parents = find_parents(nodes, t)
+    count = Enum.count(parents)
 
     case count do
-      0 ->
-        acc
-
-      _ ->
-        Enum.map(find_parents(nodes, t), fn parent ->
-          count_nodes(nodes, parent, acc + count)
-        end)
+      0 -> acc
+      _ -> Enum.map(parents, &count_nodes(nodes, &1, acc + count))
     end
   end
 
   def find_parents(nodes, t) do
-    Enum.filter(nodes, fn x ->
-      Enum.find(elem(x, 1), fn z -> z == t end)
-    end)
+    nodes
+    |> Enum.filter(&Enum.find(elem(&1, 1), fn z -> z == t end))
     |> Enum.map(fn x -> elem(x, 0) end)
   end
 end
