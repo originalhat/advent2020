@@ -35,4 +35,22 @@ defmodule BagsTest do
       assert Bags.find_parents(nodes, :shiny_gold) == [:bright_white, :muted_yellow]
     end
   end
+
+  describe "part 2" do
+    test "fudge" do
+      nodes = %{
+        :light_red => %{bright_white: 1, muted_yellow: 2},
+        :dark_orange => %{bright_white: 3, muted_yellow: 4},
+        :bright_white => %{shiny_gold: 1},
+        :muted_yellow => %{shiny_gold: 2, faded_blue: 9},
+        :shiny_gold => %{dark_olive: 1, vibrant_plum: 2},
+        :dark_olive => %{faded_blue: 3, dotted_black: 4},
+        :vibrant_plum => %{faded_blue: 5, dotted_black: 6},
+        :faded_blue => %{},
+        :dotted_black => %{}
+      }
+
+      assert Bags.total_bags(nodes, :shiny_gold) == 32
+    end
+  end
 end
